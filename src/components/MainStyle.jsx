@@ -9,7 +9,6 @@ export const Container = styled.div`
 export const Content = styled.div`
   width: 31.25rem;
   height: 6.25rem;
-  margin: 0 auto;
   padding: 0 1rem;
   background: var(--gray-400);
   border-radius: 24px;

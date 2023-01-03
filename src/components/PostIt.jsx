@@ -12,12 +12,12 @@ const changeColors = () => {
   return colors[randomColor];
 };
 
-export function PostIt() {
+export function PostIt(props) {
   return (
     <Wrapper>
       <Post background={changeColors}>
-        <p>oi eu falo</p>
-        <time title="01/01/2023">01/01/2023</time>
+        <p>{props.text}</p>
+        <time title={props.date}>{props.date}</time>
       </Post>
     </Wrapper>
   );
