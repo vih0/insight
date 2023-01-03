@@ -1,4 +1,4 @@
-import { Post, Wrapper } from "./PostItStyle.jsx";
+import { Post } from "./PostItStyle.jsx";
 const colors = [
   "#D00000",
   "#FFBA08",
@@ -14,11 +14,9 @@ const changeColors = () => {
 
 export function PostIt(props) {
   return (
-    <Wrapper>
-      <Post background={changeColors}>
-        <p>{props.text}</p>
-        <time title={props.date}>{props.date}</time>
-      </Post>
-    </Wrapper>
+    <Post background={changeColors}>
+      <p>{props.text}</p>
+      <time title={props.date}>{props.date}</time>
+    </Post>
   );
 }

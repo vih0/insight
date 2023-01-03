@@ -8,15 +8,18 @@ export function Main() {
   const setInsight = [
     { id: 1, text: "oi" },
     { id: 2, text: "oi2" },
+    { id: 3, text: "oi3" },
   ];
-  function insights() {
-    let insight = localStorage.setItem("Insight", text);
-  }
+
+  function insights() {}
   const setDate = () => {
     let date = new Date(Date.now());
     let formatDate = new Intl.DateTimeFormat("pt-BR", {
-      dateStyle: "medium",
-    }).format(date);
+      dateStyle: "long",
+    })
+      .format(date)
+      .split("de")
+      .join("/");
 
     return formatDate;
   };
@@ -25,12 +28,20 @@ export function Main() {
       <p>Descreva seu insight:</p>
       <Content>
         <Input
+          title="Descreva sua Ideia"
           value={text}
-          onChange={(event) => setText(event.target.value)}
+          onChange={(event) => {
+            setText(event.target.value);
+          }}
         ></Input>
 
         <Button>
-          <img src={addIcon} alt="Add Icon" onClick={insights()} />
+          <img
+            src={addIcon}
+            alt="Add Icon"
+            onClick={insights()}
+            title="Adicione sua ideia"
+          />
         </Button>
       </Content>
       <p>Lista dos seus insights:</p>
