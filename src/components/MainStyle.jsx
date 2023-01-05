@@ -6,7 +6,7 @@ export const Container = styled.div`
   max-width: 500px;
   margin: 0 auto;
 `;
-export const Content = styled.div`
+export const Content = styled.form`
   width: 31.25rem;
   height: 6.25rem;
   padding: 0 1rem;
@@ -25,6 +25,7 @@ export const Input = styled.input`
   background: var(--gray-500);
   color: var(--white);
   font-family: "Poppins", sans-serif;
+  outline: none;
 `;
 export const Button = styled.button`
   height: 3.2rem;
