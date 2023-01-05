@@ -9,13 +9,7 @@ import { Wrapper } from "./PostItStyle.jsx";
 export function Main() {
   const inputRef = useRef();
 
-  const [insights, setInsights] = useState([
-    {
-      id: uuid(),
-      text: "Um app de lista de insights",
-      date: "04 /jan /2023",
-    },
-  ]);
+  const [insights, setInsights] = useState([{}]);
 
   const setDate = () => {
     let date = new Date(Date.now());
@@ -32,17 +26,20 @@ export function Main() {
 
   function addInsight(event) {
     event.preventDefault();
-
+    addToMemory();
     setInsights([
       ...insights,
       { id: uuid(), text: inputRef.current.value, date: setDate() },
     ]);
   }
+  let data = JSON.stringify(insights);
+  let convert = JSON.parse(localStorage.getItem("data"));
   function addToMemory() {
-    let data = JSON.stringify(insights);
-    return localStorage.setItem("data", data);
+    localStorage.setItem("data", data);
+
+    return console.log(convert);
   }
-  addToMemory();
+
   return (
     <Container>
       <p>Descreva seu insight:</p>
@@ -60,7 +57,7 @@ export function Main() {
       </Content>
       <p>Lista dos seus insights:</p>
       <Wrapper>
-        {insights.map(({ id, text, date }) => (
+        {convert.map(({ id, text, date }) => (
           <PostIt key={id} id={id} text={text} date={date} />
         ))}
       </Wrapper>
