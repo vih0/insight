@@ -9,9 +9,14 @@ export const Post = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
+  cursor: pointer;
   & time {
     font-size: 0.65rem;
+    cursor: text;
+  }
+  & p {
+    font-size: 1.25rem;
+    cursor: text;
   }
 `;
 export const Wrapper = styled.div`
@@ -19,10 +24,4 @@ export const Wrapper = styled.div`
   flex-flow: wrap;
 
   gap: 2.25rem;
-
-  @media (max-width: 360px) {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
 `;
