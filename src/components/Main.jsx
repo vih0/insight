@@ -10,12 +10,12 @@ export function Main() {
   const inputRef = useRef();
   const [open, setOpen] = useState(false);
   const [insights, setInsights] = useState([
-    {
-      id: uuid(),
-      text: "Pirmeira ideia",
-      date: "04/jan/2023",
-      background: '#AFA2FF',
-    },
+    // {
+    //   // id: uuid(),
+    //   // text: "Pirmeira ideia",
+    //   // date: "04/jan/2023",
+    //   // background: '#AFA2FF',
+    // },
   ]);
 
   const setDate = () => {
@@ -44,7 +44,7 @@ export function Main() {
   };
   function addInsight(event) {
     event.preventDefault();
-
+    addMemory()
     setInsights([
       ...insights,
       {
@@ -54,13 +54,21 @@ export function Main() {
         background: changeColors(),
       },
     ]);
-  }
-function addTomemory(){
-    let data = insights.JSON.stringify
-   if(data.hasOwnProperty("data")){
 
-   }
+  }
+
+function addMemory(){
+  let ideia = new Array()
+
+  if(localStorage.hasOwnProperty("data")){
+     ideia =JSON.parse(localStorage.getItem("data"))
+    }
+    ideia.push({id:uuid(),text:inputRef.current.value,date:setDate(),background:changeColors()})
+    localStorage.setItem("data",JSON.stringify(ideia))
+    return ideia
+
 }
+
   return (
     <Container>
       <p>Descreva seu insight:</p>
