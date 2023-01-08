@@ -22,6 +22,5 @@ export const Post = styled.div`
 export const Wrapper = styled.div`
   display: flex;
   flex-flow: wrap;
-
   gap: 2.25rem;
 `;

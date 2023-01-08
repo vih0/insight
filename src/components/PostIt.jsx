@@ -1,10 +1,10 @@
 import { Post } from "./PostItStyle.jsx";
 
-export function PostIt(props) {
+export function PostIt({background,setOpen,text,date}) {
   return (
-    <Post background={props.background} onClick={props.setOpen}>
-      <p>{props.text}</p>
-      <time title={props.date}>{props.date}</time>
+    <Post background={background} onClick={setOpen}>
+      <p>{text}</p>
+      <time title={date}>{date}</time>
     </Post>
   );
 }

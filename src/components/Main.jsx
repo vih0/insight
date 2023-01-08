@@ -14,7 +14,7 @@ export function Main() {
       id: uuid(),
       text: "Pirmeira ideia",
       date: "04/jan/2023",
-      background: "#D00000",
+      background: '#AFA2FF',
     },
   ]);
 
@@ -55,16 +55,12 @@ export function Main() {
       },
     ]);
   }
-  function addToMemory() {
-    let teste = insights;
-    if (localStorage.hasOwnProperty(data)) {
-      teste = JSON.parse(localStorage.getItem("data"));
-    } else {
-      console.log("tem algo armazenado");
-    }
-    return teste;
-  }
-  addToMemory();
+function addTomemory(){
+    let data = insights.JSON.stringify
+   if(data.hasOwnProperty("data")){
+
+   }
+}
   return (
     <Container>
       <p>Descreva seu insight:</p>
@@ -92,8 +88,10 @@ export function Main() {
             setOpen={() => setOpen(true)}
           />
         ))}
-        {open && <Modal setOpen={() => setOpen(false)} text="bla bla bla" />}
+
+        {open && <Modal setOpen={() => setOpen(false)} text="bla bla bla" date="04/01/2023" color="#AFA2FF"/>}
       </Wrapper>
     </Container>
   );
+
 }

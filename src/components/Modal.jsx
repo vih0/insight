@@ -1,12 +1,13 @@
 import closeIcon from "../assets/closeIcon.svg";
-import { Conteiner, closeButton } from "./ModalStyle";
-export function Modal(props) {
+import { Conteiner, CloseButton } from "./ModalStyle";
+export function Modal({setOpen,text,date,color}) {
   return (
-    <Conteiner background="#FFFF">
-      <closeButton onClick={props.setOpen}>
+    <Conteiner background={color}>
+      <CloseButton onClick={setOpen}>
         <img src={closeIcon} />
-      </closeButton>
-      <p>{props.text}</p>
+      </CloseButton>
+      <p>{text}</p>
+        <time>{date}</time>
     </Conteiner>
   );
 }
