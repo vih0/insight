@@ -13,6 +13,9 @@ export const Post = styled.div`
   & time {
     font-size: 0.65rem;
   }
+  & p{
+    font-size: 1.25rem;
+  }
 `;
 export const Wrapper = styled.div`
   display: flex;
