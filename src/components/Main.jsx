@@ -1,23 +1,24 @@
 import uuid from "react-uuid";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { Button, Container, Content, Input } from "./MainStyle.jsx";
 import addIcon from "../assets/addIcon.svg";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PostIt } from "./PostIt";
 import { Wrapper } from "./PostItStyle.jsx";
 import { Modal } from "./Modal.jsx";
+
 export function Main() {
   const inputRef = useRef();
   const [open, setOpen] = useState(false);
-  const [insights, setInsights] = useState([
-    {
-      id: uuid(),
-      text: "Pirmeira ideia e teste de texto eu falei que ele se ajustava",
-      date: "04/jan/2023",
-      background: '#AFA2FF',
-    },
-  ]);
-
+  const [props, setProps] = useState([]);
+  const [insights, setInsights] = useState([]);
+  const notify = () =>
+    toast.success("Sua ideia foi adicionada!!", {
+      theme: "colored",
+      data: { key: "uuid()" },
+    });
   const setDate = () => {
     let date = new Date(Date.now());
     let formatDate = new Intl.DateTimeFormat("pt-BR", {
@@ -42,50 +43,38 @@ export function Main() {
     let randomColor = Math.floor(Math.random() * colors.length);
     return colors[randomColor];
   };
-
-
   function addInsight(event) {
     event.preventDefault();
+    notify();
 
-    // if(localStorage.hasOwnProperty("data")){
-    //   ideia =JSON.parse(localStorage.getItem("data"))
-    // }
-    // ideia.push({id:uuid(),text:inputRef.current.value,date:setDate(),background:changeColors()})
-    // localStorage.setItem("data",JSON.stringify(ideia))
-
-    setInsights([
-      ...insights,
-      {
-        id: uuid(),
-        text: inputRef.current.value,
-        date: setDate(),
-        background: changeColors(),
-      },
-    ]);
-
+    let ideia = new Array();
+    if (localStorage.hasOwnProperty("data")) {
+      ideia = JSON.parse(localStorage.getItem("data"));
+    }
+    ideia.push({
+      id: uuid(),
+      text: inputRef.current.value,
+      date: setDate(),
+      background: changeColors(),
+    });
+    localStorage.setItem("data", JSON.stringify(ideia));
   }
-const [props,setProps]= useState([])
-console.log(props.text)
-
-
+  useEffect(() => {
+    setInsights(JSON.parse(localStorage.getItem("data")));
+  });
   return (
     <Container>
       <p>Descreva seu insight:</p>
       <Content onSubmit={addInsight}>
         <Input title="Descreva sua Ideia" ref={inputRef} />
 
-        <Button>
-          <img
-            src={addIcon}
-            alt="Add Icon"
-            onClick={addInsight}
-            title="Adicione sua ideia"
-          />
+        <Button onClick={() => addInsight}>
+          <img src={addIcon} alt="Add Icon" title="Adicione sua ideia" />
         </Button>
       </Content>
       <p>Lista dos seus insights:</p>
       <Wrapper>
-        {insights.map(({id,text,date,background}) => (
+        {insights.map(({ id, text, date, background }) => (
           <PostIt
             key={id}
             id={id}
@@ -93,17 +82,27 @@ console.log(props.text)
             date={date}
             background={background}
             Onclick={() => {
-              setOpen(true)
-              setProps({id:id,text:text,date:date,background:background})
+              setOpen(true);
+              setProps({
+                id: id,
+                text: text,
+                date: date,
+                background: background,
+              });
             }}
-
           />
         ))}
 
-        {open && <Modal setOpen={() => setOpen(false)} text={props.text} date={props.date} color={props.background}/>}
+        {open && (
+          <Modal
+            setOpen={() => setOpen(false)}
+            text={props.text}
+            date={props.date}
+            color={props.background}
+          />
+        )}
       </Wrapper>
+      <ToastContainer />
     </Container>
   );
-
-
 }
