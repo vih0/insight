@@ -10,12 +10,12 @@ export function Main() {
   const inputRef = useRef();
   const [open, setOpen] = useState(false);
   const [insights, setInsights] = useState([
-    // {
-    //   // id: uuid(),
-    //   // text: "Pirmeira ideia",
-    //   // date: "04/jan/2023",
-    //   // background: '#AFA2FF',
-    // },
+    {
+      id: uuid(),
+      text: "Pirmeira ideia e teste de texto eu falei que ele se ajustava",
+      date: "04/jan/2023",
+      background: '#AFA2FF',
+    },
   ]);
 
   const setDate = () => {
@@ -42,9 +42,17 @@ export function Main() {
     let randomColor = Math.floor(Math.random() * colors.length);
     return colors[randomColor];
   };
+
+
   function addInsight(event) {
     event.preventDefault();
-    addMemory()
+
+    // if(localStorage.hasOwnProperty("data")){
+    //   ideia =JSON.parse(localStorage.getItem("data"))
+    // }
+    // ideia.push({id:uuid(),text:inputRef.current.value,date:setDate(),background:changeColors()})
+    // localStorage.setItem("data",JSON.stringify(ideia))
+
     setInsights([
       ...insights,
       {
@@ -56,18 +64,9 @@ export function Main() {
     ]);
 
   }
+const [props,setProps]= useState([])
+console.log(props.text)
 
-function addMemory(){
-  let ideia = new Array()
-
-  if(localStorage.hasOwnProperty("data")){
-     ideia =JSON.parse(localStorage.getItem("data"))
-    }
-    ideia.push({id:uuid(),text:inputRef.current.value,date:setDate(),background:changeColors()})
-    localStorage.setItem("data",JSON.stringify(ideia))
-    return ideia
-
-}
 
   return (
     <Container>
@@ -86,20 +85,25 @@ function addMemory(){
       </Content>
       <p>Lista dos seus insights:</p>
       <Wrapper>
-        {insights.map(({ id, text, date, background }) => (
+        {insights.map(({id,text,date,background}) => (
           <PostIt
             key={id}
             id={id}
             text={text}
             date={date}
             background={background}
-            setOpen={() => setOpen(true)}
+            Onclick={() => {
+              setOpen(true)
+              setProps({id:id,text:text,date:date,background:background})
+            }}
+
           />
         ))}
 
-        {open && <Modal setOpen={() => setOpen(false)} text="bla bla bla" date="04/01/2023" color="#AFA2FF"/>}
+        {open && <Modal setOpen={() => setOpen(false)} text={props.text} date={props.date} color={props.background}/>}
       </Wrapper>
     </Container>
   );
+
 
 }
