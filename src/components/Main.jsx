@@ -52,9 +52,8 @@ export function Main() {
     event.preventDefault();
     notify();
 
-    let ideia = new Array();
-
-    setInsights([
+    // let ideia = new Array();
+    const aux = [
       ...insights,
       {
         id: uuid(),
@@ -62,12 +61,12 @@ export function Main() {
         date: setDate(),
         background: changeColors(),
       },
-    ]);
-    localStorage.setItem("data", JSON.stringify([...insights, ideia]));
-    useEffect(() => {}, []);
+    ];
+    setInsights(aux);
+    // ideia.push(insights);
+    localStorage.setItem("data", JSON.stringify(aux));
   }
 
-  console.log(insights);
   return (
     <Container>
       <p>Descreva seu insight:</p>
