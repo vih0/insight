@@ -2,8 +2,8 @@ import uuid from "react-uuid";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { Button, Container, Content, Input } from "./MainStyle.jsx";
 import addIcon from "../assets/addIcon.svg";
+import { Button, Container, Content, Input } from "./MainStyle.jsx";
 import { useEffect, useRef, useState } from "react";
 import { PostIt } from "./PostIt";
 import { Wrapper } from "./PostItStyle.jsx";
@@ -19,6 +19,10 @@ export function Main() {
       theme: "colored",
       data: { key: "uuid()" },
     });
+  const notifyAdd = () => {
+    toast.info("Insira sua ideia", { theme: "colored", autoClose: false });
+  };
+
   const setDate = () => {
     let date = new Date(Date.now());
     let formatDate = new Intl.DateTimeFormat("pt-BR", {
@@ -43,38 +47,40 @@ export function Main() {
     let randomColor = Math.floor(Math.random() * colors.length);
     return colors[randomColor];
   };
+
   function addInsight(event) {
     event.preventDefault();
     notify();
 
     let ideia = new Array();
-    if (localStorage.hasOwnProperty("data")) {
-      ideia = JSON.parse(localStorage.getItem("data"));
-    }
-    ideia.push({
-      id: uuid(),
-      text: inputRef.current.value,
-      date: setDate(),
-      background: changeColors(),
-    });
-    localStorage.setItem("data", JSON.stringify(ideia));
+
+    setInsights([
+      ...insights,
+      {
+        id: uuid(),
+        text: inputRef.current.value,
+        date: setDate(),
+        background: changeColors(),
+      },
+    ]);
+    localStorage.setItem("data", JSON.stringify([...insights, ideia]));
+    useEffect(() => {}, []);
   }
-  useEffect(() => {
-    setInsights(JSON.parse(localStorage.getItem("data")));
-  });
+
+  console.log(insights);
   return (
     <Container>
       <p>Descreva seu insight:</p>
       <Content onSubmit={addInsight}>
         <Input title="Descreva sua Ideia" ref={inputRef} />
 
-        <Button onClick={() => addInsight}>
+        <Button onClick={addInsight}>
           <img src={addIcon} alt="Add Icon" title="Adicione sua ideia" />
         </Button>
       </Content>
       <p>Lista dos seus insights:</p>
       <Wrapper>
-        {insights.map(({ id, text, date, background }) => (
+        {insights?.map(({ id, text, date, background }) => (
           <PostIt
             key={id}
             id={id}
@@ -102,7 +108,7 @@ export function Main() {
           />
         )}
       </Wrapper>
-      <ToastContainer />
+      <ToastContainer role="alert" autoClose={3000} />
     </Container>
   );
 }
