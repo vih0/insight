@@ -41,3 +41,17 @@ export const DeleteButton = styled.button`
     color: #a60000;
   }
 `;
+export const UploadButton = styled.button`
+  border: 0;
+  background: transparent;
+  color: var(--white);
+  cursor: pointer;
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  color: var(--white);
+
+  & svg:hover {
+    color: #a60000;
+  }
+`;

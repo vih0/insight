@@ -72,8 +72,9 @@ export function Main() {
     setInsights(insightsWithoutOne);
     localStorage.setItem("data", JSON.stringify(insights));
   }
-  function SavePasteImage() {
+  function Save() {
     console.log("oi");
+    window.print();
   }
   return (
     <Container>
@@ -113,6 +114,7 @@ export function Main() {
             date={props.date}
             color={props.background}
             deletePost={DeletePostIt}
+            savePastePDF={Save}
           />
         )}
       </Wrapper>
