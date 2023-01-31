@@ -68,8 +68,12 @@ export function Main() {
     inputRef.current.value = "";
   }
   function DeletePostIt() {
-    let found = insights.find(({ text }) => text === props.text);
-    console.log(found);
+    let insightsWithoutOne = insights.filter(({ id }) => id !== props.id);
+    setInsights(insightsWithoutOne);
+    localStorage.setItem("data", JSON.stringify(insights));
+  }
+  function SavePasteImage() {
+    console.log("oi");
   }
   return (
     <Container>
