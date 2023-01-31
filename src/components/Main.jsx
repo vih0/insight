@@ -1,7 +1,6 @@
 import uuid from "react-uuid";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import addIcon from "../assets/addIcon.svg";
 import { Button, Container, Content, Input } from "./MainStyle.jsx";
 import { useEffect, useRef, useState } from "react";
@@ -15,18 +14,17 @@ export function Main() {
   const [props, setProps] = useState([]);
   const [insights, setInsights] = useState([]);
   const notify = () =>
-      toast.success("Sua ideia foi adicionada!!", {
-        theme: "colored",
-        data: { key: "uuid()" },
-      });
-
+    toast.success("Sua ideia foi adicionada!!", {
+      theme: "colored",
+      data: { key: "uuid()" },
+    });
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('data'))
-    if(!data){
-      localStorage.setItem('data', JSON.stringify(insights));
-    }else{
-      setInsights(data)
+    const data = JSON.parse(localStorage.getItem("data"));
+    if (!data) {
+      localStorage.setItem("data", JSON.stringify(insights));
+    } else {
+      setInsights(data);
     }
   }, []);
   const setDate = () => {
@@ -36,9 +34,9 @@ export function Main() {
       month: "short",
       year: "numeric",
     })
-        .format(date)
-        .split("de")
-        .join("/");
+      .format(date)
+      .split("de")
+      .join("/");
     return formatDate;
   };
   const changeColors = () => {
@@ -53,10 +51,8 @@ export function Main() {
     let randomColor = Math.floor(Math.random() * colors.length);
     return colors[randomColor];
   };
-
   function addInsight(event) {
     event.preventDefault();
-
     const aux = [
       ...insights,
       {
@@ -66,57 +62,57 @@ export function Main() {
         background: changeColors(),
       },
     ];
-
     setInsights(aux);
     localStorage.setItem("data", JSON.stringify(aux));
     notify();
-    inputRef.current.value = ''
-
+    inputRef.current.value = "";
   }
-
-
-
+  function DeletePostIt() {
+    let found = insights.find(({ text }) => text === props.text);
+    console.log(found);
+  }
   return (
-      <Container>
-        <p>Descreva seu insight:</p>
-        <Content onSubmit={addInsight}>
-          <Input title="Descreva sua Ideia" ref={inputRef} />
+    <Container>
+      <p>Descreva seu insight:</p>
+      <Content onSubmit={addInsight}>
+        <Input title="Descreva sua Ideia" ref={inputRef} />
 
-          <Button onClick={addInsight}>
-            <img src={addIcon} alt="Add Icon" title="Adicione sua ideia" />
-          </Button>
-        </Content>
-        <p>Lista dos seus insights:</p>
-        <Wrapper>
-          {insights?.map(({ id, text, date, background }) => (
-              <PostIt
-                  key={id}
-                  id={id}
-                  text={text}
-                  date={date}
-                  background={background}
-                  Onclick={() => {
-                    setOpen(true);
-                    setProps({
-                      id: id,
-                      text: text,
-                      date: date,
-                      background: background,
-                    });
-                  }}
-              />
-          ))}
+        <Button onClick={addInsight}>
+          <img src={addIcon} alt="Add Icon" title="Adicione sua ideia" />
+        </Button>
+      </Content>
+      <p>Lista dos seus insights:</p>
+      <Wrapper>
+        {insights?.map(({ id, text, date, background }) => (
+          <PostIt
+            key={id}
+            id={id}
+            text={text}
+            date={date}
+            background={background}
+            Onclick={() => {
+              setOpen(true);
+              setProps({
+                id: id,
+                text: text,
+                date: date,
+                background: background,
+              });
+            }}
+          />
+        ))}
 
-          {open && (
-              <Modal
-                  setOpen={() => setOpen(false)}
-                  text={props.text}
-                  date={props.date}
-                  color={props.background}
-              />
-          )}
-        </Wrapper>
-        <ToastContainer role="alert" autoClose={3000} />
-      </Container>
+        {open && (
+          <Modal
+            setOpen={() => setOpen(false)}
+            text={props.text}
+            date={props.date}
+            color={props.background}
+            deletePost={DeletePostIt}
+          />
+        )}
+      </Wrapper>
+      <ToastContainer role="alert" autoClose={3000} />
+    </Container>
   );
 }

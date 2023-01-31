@@ -17,9 +17,9 @@ export const Post = styled.div`
   & p {
     font-size: 1.25rem;
     cursor: text;
-    
   }
 `;
+
 export const Wrapper = styled.div`
   display: flex;
   flex-flow: wrap;
