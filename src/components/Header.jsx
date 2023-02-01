@@ -1,4 +1,4 @@
-import {Content, Title} from './HeaderStyle.jsx';
+import {Content, Title} from './HeaderStyle.js';
 import logo from '../assets/Logo.svg';
 export function Header(){
     return(

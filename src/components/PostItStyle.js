@@ -19,9 +19,15 @@ export const Post = styled.div`
     cursor: text;
     
   }
+ &:hover{
+  filter: drop-shadow(3px 3px 6px #575757 );
+
+ }
 `;
 export const Wrapper = styled.div`
   display: flex;
   flex-flow: wrap;
   gap: 2.25rem;
+
+ 
 `;

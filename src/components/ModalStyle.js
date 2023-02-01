@@ -29,3 +29,29 @@ export const CloseButton = styled.button`
   
   
 `;
+export const DeleteButton = styled.button`
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  background-color: transparent;
+  border:none;
+  color:var(--white);
+  cursor: pointer;
+  &:hover{
+    filter: drop-shadow(2px 2px 4px #696969 );
+    
+
+  }
+`;
+export const ShareButton = styled.button`
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  background-color: transparent;
+  border:none;
+  color:var(--white);
+  cursor: pointer;
+  &:hover{
+    filter: drop-shadow(2px 2px 4px #696969 );
+  }
+`;

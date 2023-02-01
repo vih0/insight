@@ -1,12 +1,11 @@
 import uuid from "react-uuid";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import addIcon from "../assets/addIcon.svg";
-import { Button, Container, Content, Input } from "./MainStyle.jsx";
+import { Button, Container, Content, Input } from "./MainStyle.js";
 import { useEffect, useRef, useState } from "react";
 import { PostIt } from "./PostIt";
-import { Wrapper } from "./PostItStyle.jsx";
+import { Wrapper } from "./PostItStyle.js";
 import { Modal } from "./Modal.jsx";
 
 export function Main() {
@@ -19,7 +18,8 @@ export function Main() {
         theme: "colored",
         data: { key: "uuid()" },
       });
-
+      const notifyDeleted = () =>
+      toast.success("Ideia deletada com sucesso")
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem('data'))
@@ -73,7 +73,16 @@ export function Main() {
     inputRef.current.value = ''
 
   }
+ 
 
+  function DeleteButton() {
+    let insightsWithoutOne = insights.filter(({ id }) => id !== props.id)
+    localStorage.setItem("data",JSON.stringify(insightsWithoutOne))
+    setInsights(insightsWithoutOne)
+    notifyDeleted();
+    setOpen(false)
+  }
+ 
 
 
   return (
@@ -113,6 +122,9 @@ export function Main() {
                   text={props.text}
                   date={props.date}
                   color={props.background}
+            deleteFunction={DeleteButton}
+            
+            
               />
           )}
         </Wrapper>
