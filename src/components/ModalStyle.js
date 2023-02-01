@@ -43,7 +43,7 @@ export const DeleteButton = styled.button`
 
   }
 `;
-export const ShareButton = styled.button`
+export const DownloadButton = styled.button`
   position: absolute;
   bottom: 1rem;
   right: 1rem;
