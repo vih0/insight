@@ -1,9 +1,9 @@
 import uuid from "react-uuid";
+import { useEffect, useRef, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import addIcon from "../assets/addIcon.svg";
 import { Button, Container, Content, Input } from "./MainStyle.js";
-import { useEffect, useRef, useState } from "react";
 import { PostIt } from "./PostIt";
 import { Wrapper } from "./PostItStyle.js";
 import { Modal } from "./Modal.jsx";
@@ -18,7 +18,7 @@ export function Main() {
         theme: "colored",
         data: { key: "uuid()" },
       });
-      const notifyDeleted = () =>
+  const notifyDeleted = () =>
       toast.success("Ideia deletada com sucesso")
 
   useEffect(() => {
@@ -69,16 +69,6 @@ export function Main() {
     notify();
     inputRef.current.value = "";
   }
-  function DeletePostIt() {
-    let insightsWithoutOne = insights.filter(({ id }) => id !== props.id);
-    setInsights(insightsWithoutOne);
-    localStorage.setItem("data", JSON.stringify(insights));
-  }
-  function Save() {
-    console.log("oi");
-    window.print();
-  }
- 
 
   function DeleteButton() {
     let insightsWithoutOne = insights.filter(({ id }) => id !== props.id)
@@ -88,8 +78,6 @@ export function Main() {
     setOpen(false)
   }
  
-
-
   return (
     <Container>
       <p>Descreva seu insight:</p>
