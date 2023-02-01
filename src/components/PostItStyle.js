@@ -17,13 +17,13 @@ export const Post = styled.div`
   & p {
     font-size: 1.25rem;
     cursor: text;
-    
   }
  &:hover{
   filter: drop-shadow(3px 3px 6px #575757 );
 
  }
 `;
+
 export const Wrapper = styled.div`
   display: flex;
   flex-flow: wrap;

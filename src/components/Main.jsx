@@ -22,11 +22,11 @@ export function Main() {
       toast.success("Ideia deletada com sucesso")
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('data'))
-    if(!data){
-      localStorage.setItem('data', JSON.stringify(insights));
-    }else{
-      setInsights(data)
+    const data = JSON.parse(localStorage.getItem("data"));
+    if (!data) {
+      localStorage.setItem("data", JSON.stringify(insights));
+    } else {
+      setInsights(data);
     }
   }, []);
   const setDate = () => {
@@ -36,9 +36,9 @@ export function Main() {
       month: "short",
       year: "numeric",
     })
-        .format(date)
-        .split("de")
-        .join("/");
+      .format(date)
+      .split("de")
+      .join("/");
     return formatDate;
   };
   const changeColors = () => {
@@ -53,10 +53,8 @@ export function Main() {
     let randomColor = Math.floor(Math.random() * colors.length);
     return colors[randomColor];
   };
-
   function addInsight(event) {
     event.preventDefault();
-
     const aux = [
       ...insights,
       {
@@ -66,12 +64,19 @@ export function Main() {
         background: changeColors(),
       },
     ];
-
     setInsights(aux);
     localStorage.setItem("data", JSON.stringify(aux));
     notify();
-    inputRef.current.value = ''
-
+    inputRef.current.value = "";
+  }
+  function DeletePostIt() {
+    let insightsWithoutOne = insights.filter(({ id }) => id !== props.id);
+    setInsights(insightsWithoutOne);
+    localStorage.setItem("data", JSON.stringify(insights));
+  }
+  function Save() {
+    console.log("oi");
+    window.print();
   }
  
 
@@ -86,35 +91,35 @@ export function Main() {
 
 
   return (
-      <Container>
-        <p>Descreva seu insight:</p>
-        <Content onSubmit={addInsight}>
-          <Input title="Descreva sua Ideia" ref={inputRef} />
+    <Container>
+      <p>Descreva seu insight:</p>
+      <Content onSubmit={addInsight}>
+        <Input title="Descreva sua Ideia" ref={inputRef} />
 
-          <Button onClick={addInsight}>
-            <img src={addIcon} alt="Add Icon" title="Adicione sua ideia" />
-          </Button>
-        </Content>
-        <p>Lista dos seus insights:</p>
-        <Wrapper>
-          {insights?.map(({ id, text, date, background }) => (
-              <PostIt
-                  key={id}
-                  id={id}
-                  text={text}
-                  date={date}
-                  background={background}
-                  Onclick={() => {
-                    setOpen(true);
-                    setProps({
-                      id: id,
-                      text: text,
-                      date: date,
-                      background: background,
-                    });
-                  }}
-              />
-          ))}
+        <Button onClick={addInsight}>
+          <img src={addIcon} alt="Add Icon" title="Adicione sua ideia" />
+        </Button>
+      </Content>
+      <p>Lista dos seus insights:</p>
+      <Wrapper>
+        {insights?.map(({ id, text, date, background }) => (
+          <PostIt
+            key={id}
+            id={id}
+            text={text}
+            date={date}
+            background={background}
+            Onclick={() => {
+              setOpen(true);
+              setProps({
+                id: id,
+                text: text,
+                date: date,
+                background: background,
+              });
+            }}
+          />
+        ))}
 
           {open && (
               <Modal
