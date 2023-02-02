@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import addIcon from "../assets/addIcon.svg";
-import { Button, Container, Content, Input } from "./MainStyle.js";
+import * as S from "./MainStyle.js";
 import { PostIt } from "./PostIt";
 import { Wrapper } from "./PostItStyle.js";
 import { Modal } from "./Modal.jsx";
@@ -13,14 +13,16 @@ export function Main() {
   const [open, setOpen] = useState(false);
   const [props, setProps] = useState([]);
   const [insights, setInsights] = useState([]);
-  const notify = () =>
-      toast.success("Sua ideia foi adicionada!!", {
+  const notify = (text) =>
+      toast.success(text, {
         theme: "colored",
         data: { key: "uuid()" },
       });
-  const notifyDeleted = () =>
-      toast.success("Ideia deletada com sucesso")
-
+      const invalidNotfy = (text) => {
+        toast.error(text, {
+          theme:"colored"
+        })
+      }
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("data"));
     if (!data) {
@@ -53,41 +55,49 @@ export function Main() {
     let randomColor = Math.floor(Math.random() * colors.length);
     return colors[randomColor];
   };
+  
+  
   function addInsight(event) {
+    
     event.preventDefault();
-    const aux = [
-      ...insights,
-      {
-        id: uuid(),
-        text: inputRef.current.value,
-        date: setDate(),
-        background: changeColors(),
-      },
-    ];
-    setInsights(aux);
-    localStorage.setItem("data", JSON.stringify(aux));
-    notify();
-    inputRef.current.value = "";
+    if (inputRef.current.value !== '') {
+      const aux = [
+        ...insights,
+        {
+          id: uuid(),
+          text: inputRef.current.value,
+          date: setDate(),
+          background: changeColors(),
+        },
+      ];
+      setInsights(aux);
+      localStorage.setItem("data", JSON.stringify(aux));
+      notify('Ideia adicionada com sucesso');
+      inputRef.current.value = "";
+    } 
+    invalidNotfy('Não é permitido campo vazio')
   }
+    
+  
 
   function DeleteButton() {
     let insightsWithoutOne = insights.filter(({ id }) => id !== props.id)
     localStorage.setItem("data",JSON.stringify(insightsWithoutOne))
     setInsights(insightsWithoutOne)
-    notifyDeleted();
+    notify('Ideia deletada com sucesso');
     setOpen(false)
   }
  
   return (
-    <Container>
+    <S.Container>
       <p>Descreva seu insight:</p>
-      <Content onSubmit={addInsight}>
-        <Input title="Descreva sua Ideia" ref={inputRef} />
+      <S.Form onSubmit={addInsight}>
+        <S.Input title="Descreva sua Ideia" ref={inputRef} required/>
 
-        <Button onClick={addInsight}>
+        <S.Button onClick={addInsight} type="submit" > 
           <img src={addIcon} alt="Add Icon" title="Adicione sua ideia" />
-        </Button>
-      </Content>
+        </S.Button>
+      </S.Form>
       <p>Lista dos seus insights:</p>
       <Wrapper>
         {insights?.map(({ id, text, date, background }) => (
@@ -122,6 +132,6 @@ export function Main() {
           )}
         </Wrapper>
         <ToastContainer role="alert" autoClose={3000} />
-      </Container>
+      </S.Container>
   );
 }

@@ -6,7 +6,7 @@ export const Container = styled.div`
   max-width: 500px;
   margin: 0 auto;
 `;
-export const Content = styled.form`
+export const Form = styled.form`
   width: 31.25rem;
   height: 6.25rem;
   padding: 0 1rem;
