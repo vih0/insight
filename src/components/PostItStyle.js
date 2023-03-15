@@ -25,9 +25,11 @@ export const Post = styled.div`
 `;
 
 export const Wrapper = styled.div`
-  display: flex;
-  flex-flow: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
   gap: 2.25rem;
+  margin: 0 auto;
 
  
 `;

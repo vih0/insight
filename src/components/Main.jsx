@@ -2,11 +2,11 @@ import uuid from "react-uuid";
 import { useEffect, useRef, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import addIcon from "../assets/addIcon.svg";
 import * as S from "./MainStyle.js";
 import { PostIt } from "./PostIt";
 import { Wrapper } from "./PostItStyle.js";
 import { Modal } from "./Modal.jsx";
+import { Form } from "./Form";
 
 export function Main() {
   const inputRef = useRef();
@@ -74,8 +74,10 @@ export function Main() {
       localStorage.setItem("data", JSON.stringify(aux));
       notify('Ideia adicionada com sucesso');
       inputRef.current.value = "";
+    } else {
+      invalidNotfy('Não é permitido campo vazio')
+      
     } 
-    invalidNotfy('Não é permitido campo vazio')
   }
     
   
@@ -87,17 +89,11 @@ export function Main() {
     notify('Ideia deletada com sucesso');
     setOpen(false)
   }
- 
+
   return (
     <S.Container>
       <p>Descreva seu insight:</p>
-      <S.Form onSubmit={addInsight}>
-        <S.Input title="Descreva sua Ideia" ref={inputRef} required/>
-
-        <S.Button onClick={addInsight} type="submit" > 
-          <img src={addIcon} alt="Add Icon" title="Adicione sua ideia" />
-        </S.Button>
-      </S.Form>
+      <Form onClick={addInsight} onSubmit={addInsight} Ref={inputRef} />
       <p>Lista dos seus insights:</p>
       <Wrapper>
         {insights?.map(({ id, text, date, background }) => (

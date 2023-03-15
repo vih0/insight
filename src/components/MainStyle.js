@@ -1,10 +1,9 @@
 import styled from "styled-components";
 export const Container = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  justify-content: center;
   text-align: left;
-  max-width: 500px;
-  margin: 0 auto;
+  
 `;
 export const Form = styled.form`
   width: 31.25rem;
