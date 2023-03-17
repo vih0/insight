@@ -4,10 +4,10 @@ import addIcon from "../assets/addIcon.svg";
 export function Form({onSubmit,Ref,onClick}) {
     return (
         <S.Form onSubmit={onSubmit}>
-        <S.Input title="Descreva sua Ideia" ref={Ref} required/>
+        <S.Input data-testid="form-field" title="Descreva sua Ideia" ref={Ref} required/>
 
-        <S.Button onClick={onClick} type="submit" > 
-          <img src={addIcon} alt="Add Icon" title="Adicione sua ideia" />
+        <S.Button onClick={onClick} type="submit" title="Adicione sua ideia" > 
+          <img src={addIcon} alt="Add Icon"  />
         </S.Button>
       </S.Form>
     );
