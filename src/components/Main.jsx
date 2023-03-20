@@ -13,6 +13,7 @@ export function Main() {
   const [open, setOpen] = useState(false);
   const [props, setProps] = useState([]);
   const [insights, setInsights] = useState([]);
+  const [isEmpty, setIsEmpty] = useState(false)
   const notify = (text) =>
       toast.success(text, {
         theme: "colored",
@@ -74,8 +75,10 @@ export function Main() {
       localStorage.setItem("data", JSON.stringify(aux));
       notify('Ideia adicionada com sucesso');
       inputRef.current.value = "";
+      setIsEmpty(false)
     } else {
       invalidNotfy('Não é permitido campo vazio')
+      setIsEmpty(true)
       
     } 
   }
@@ -93,7 +96,7 @@ export function Main() {
   return (
     <S.Container>
       <p>Descreva seu insight:</p>
-      <Form onClick={addInsight} onSubmit={addInsight} Ref={inputRef} />
+      <Form onClick={addInsight} onSubmit={addInsight} Ref={inputRef} altText ={isEmpty ? 'Não é aceitavel campo vazio': ''}/>
       <p>Lista dos seus insights:</p>
       <Wrapper>
         {insights?.map(({ id, text, date, background }) => (
