@@ -6,7 +6,7 @@ export function Form({onSubmit,Ref,onClick}) {
         <S.Form onSubmit={onSubmit}>
         <S.Input data-testid="form-field" title="Descreva sua Ideia" ref={Ref} required/>
 
-        <S.Button onClick={onClick} type="submit" title="Adicione sua ideia" > 
+        <S.Button data-testid="form-btn" onClick={onClick} type="submit" title="Adicione sua ideia" > 
           <img src={addIcon} alt="Add Icon"  />
         </S.Button>
       </S.Form>
